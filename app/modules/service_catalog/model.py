@@ -3,11 +3,17 @@ from typing import TYPE_CHECKING
 from sqlalchemy import UniqueConstraint
 from sqlmodel import Field, Relationship, SQLModel
 
-from app.modules import provider_services
-from app.modules.provider_services.model import ProviderService
-
 if TYPE_CHECKING:
-    from app.modules.categories.model import Category
+    from app.modules.provider_services.model import ProviderService
+
+
+class Category(SQLModel, table=True):
+    __tablename__ = "categories"
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(max_length=225, unique=True)
+    description: str | None = Field(default=None, max_length=500)
+    is_active: bool = Field(default=True)
+    service_types: list["ServiceType"] = Relationship(back_populates="category")
 
 
 class ServiceType(SQLModel, table=True):

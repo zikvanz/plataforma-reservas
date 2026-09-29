@@ -2,10 +2,10 @@ from typing import TYPE_CHECKING
 
 from sqlmodel import Field, Relationship, SQLModel
 
-from app.modules.provider_services.model import ProviderService
-
 if TYPE_CHECKING:
     from app.modules.users.model import User
+    from app.modules.availability.model import AvailabilityRule
+    from app.modules.provider_services.model import ProviderService
 
 
 class Provider(SQLModel, table=True):
@@ -18,3 +18,6 @@ class Provider(SQLModel, table=True):
     is_verified: bool = Field(default=False)
     user: "User" = Relationship(back_populates="user")
     provider_service: list["ProviderService"] = Relationship(back_populates="providers")
+    availability_rules: list["AvailabilityRule"] = Relationship(
+        back_populates="providers"
+    )

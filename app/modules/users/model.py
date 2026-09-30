@@ -1,10 +1,11 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 from alembic.environment import Optional
 from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
     from app.modules.providers.model import Provider
+    from app.modules.bookings.model import Booking
 
 
 class User(SQLModel, table=True):
@@ -17,3 +18,4 @@ class User(SQLModel, table=True):
     provider: Optional["Provider"] = Relationship(
         back_populates="provider", sa_relationship_kwargs={"uselist": False}
     )
+    bookings: List["Booking"] = Relationship(back_populates="client")

@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from decimal import Decimal
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import CheckConstraint, Column, DateTime, Index
 from sqlmodel import Field, Relationship, SQLModel
@@ -8,6 +8,7 @@ from sqlmodel import Field, Relationship, SQLModel
 if TYPE_CHECKING:
     from app.modules.provider_services.model import ProviderService
     from app.modules.users.model import User
+    from app.modules.reviews.model import Review
 
 
 class Booking(SQLModel, table=True):
@@ -58,3 +59,4 @@ class Booking(SQLModel, table=True):
     )
     client: "User" = Relationship(back_populates="bookings")
     provider_service: "ProviderService" = Relationship(back_populates="bookings")
+    review: Optional["Review"] = Relationship(back_populates="booking")

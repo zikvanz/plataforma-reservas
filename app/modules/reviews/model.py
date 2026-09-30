@@ -10,8 +10,8 @@ if TYPE_CHECKING:
 
 class Review(SQLModel, table=True):
     __tablename__ = "reviews"
-    __table_args__ = CheckConstraint(
-        "rating BETWEEN 1 AND 5", name="reviews_valid_rating"
+    __table_args__ = (
+        CheckConstraint("rating BETWEEN 1 AND 5", name="ck_reviews_valid_rating"),
     )
     id: int | None = Field(default=None, primary_key=True)
     booking_id: int = Field(foreign_key="bookings.id", unique=True)

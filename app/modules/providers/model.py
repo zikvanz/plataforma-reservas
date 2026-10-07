@@ -16,7 +16,7 @@ class Provider(SQLModel, table=True):
     description: str | None = Field(default=None, max_length=500)
     direction: str = Field(max_length=300)
     is_verified: bool = Field(default=False)
-    user: "User" = Relationship(back_populates="user")
+    user: "User" = Relationship(back_populates="provider")
     provider_service: list["ProviderService"] = Relationship(back_populates="providers")
     availability_rules: list["AvailabilityRule"] = Relationship(
         back_populates="providers"
